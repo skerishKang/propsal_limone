@@ -1,17 +1,17 @@
 // 슬라이드 네비게이션 공통 함수
 const SlideNav = {
-    // 슬라이드 정보 (index.html = 표지, contents.html = 목차)
+    // 슬라이드 정보 (/ = 표지, /contents = 목차)
     slides: [
-        { id: 0, name: 'title', file: 'index.html' },
-        { id: 1, name: 'contents', file: 'contents.html' },
-        { id: 2, name: 'overview', file: 'slide2.html' },
-        { id: 3, name: 'curriculum', file: 'slide3.html' },
-        { id: 4, name: 'stage1', file: 'slide4.html' },
-        { id: 5, name: 'stage2', file: 'slide5.html' },
-        { id: 6, name: 'stage3', file: 'slide6.html' },
-        { id: 7, name: 'stage4', file: 'slide7.html' },
-        { id: 8, name: 'stage5', file: 'slide8.html' },
-        { id: 9, name: 'effect', file: 'slide9.html' }
+        { id: 0, name: 'title', file: './' },
+        { id: 1, name: 'contents', file: './contents' },
+        { id: 2, name: 'overview', file: './slide2' },
+        { id: 3, name: 'curriculum', file: './slide3' },
+        { id: 4, name: 'stage1', file: './slide4' },
+        { id: 5, name: 'stage2', file: './slide5' },
+        { id: 6, name: 'stage3', file: './slide6' },
+        { id: 7, name: 'stage4', file: './slide7' },
+        { id: 8, name: 'stage5', file: './slide8' },
+        { id: 9, name: 'effect', file: './slide9' }
     ],
     
     // 프레젠터 노트 (각 슬라이드별)
@@ -31,9 +31,31 @@ const SlideNav = {
     // 현재 슬라이드 번호 가져오기
     getCurrentSlide() {
         const path = window.location.pathname;
-        const fileName = path.split('/').pop();
-        const slide = this.slides.find(s => s.file === fileName);
-        return slide ? slide.id : 0;
+        
+        // Netlify 경로 처리
+        if (path === '/' || path === '/index' || path.includes('index')) {
+            return 0; // 표지
+        } else if (path === '/contents' || path.includes('contents')) {
+            return 1; // 목차
+        } else if (path.includes('slide2')) {
+            return 2;
+        } else if (path.includes('slide3')) {
+            return 3;
+        } else if (path.includes('slide4')) {
+            return 4;
+        } else if (path.includes('slide5')) {
+            return 5;
+        } else if (path.includes('slide6')) {
+            return 6;
+        } else if (path.includes('slide7')) {
+            return 7;
+        } else if (path.includes('slide8')) {
+            return 8;
+        } else if (path.includes('slide9')) {
+            return 9;
+        }
+        
+        return 0; // 기본값
     },
     
     // 특정 슬라이드로 이동
@@ -46,7 +68,7 @@ const SlideNav = {
                 } else {
                     console.error('대상 파일이 정의되지 않음:', slideNumber);
                     // 홈으로 돌아가기
-                    window.location.href = 'index.html';
+                    window.location.href = './';
                 }
             } else {
                 console.warn('슬라이드 번호 범위 초과:', slideNumber);
@@ -54,7 +76,7 @@ const SlideNav = {
         } catch (error) {
             console.error('네비게이션 오류:', error);
             // 홈으로 돌아가기
-            window.location.href = 'index.html';
+            window.location.href = './';
         }
     },
     
@@ -98,7 +120,7 @@ const SlideNav = {
         if (existingNav) existingNav.remove();
         if (existingIndicators) existingIndicators.remove();
         
-        // 목차 페이지(contents.html)는 별도 네비게이션
+        // 목차 페이지(/contents)는 별도 네비게이션
         if (current === 1) {
             this.createContentsNavigation();
             return;
@@ -129,7 +151,7 @@ const SlideNav = {
         const prevBtn = document.createElement('a');
         prevBtn.className = 'nav-btn';
         prevBtn.textContent = '◀ 이전';
-        prevBtn.href = current > 2 ? this.slides[current - 1].file : 'contents.html';
+        prevBtn.href = current > 2 ? this.slides[current - 1].file : './contents';
         if (current === 2) {
             prevBtn.textContent = '◀ 목차';
         }
@@ -147,7 +169,7 @@ const SlideNav = {
         const homeBtn = document.createElement('a');
         homeBtn.className = 'nav-btn';
         homeBtn.textContent = '표지';
-        homeBtn.href = 'index.html';
+        homeBtn.href = './';
         
         // 프레젠터 노트 버튼 추가
         const notesBtn = document.createElement('button');
@@ -457,35 +479,40 @@ const SlideNav = {
         const homeBtn = document.createElement('a');
         homeBtn.className = 'nav-btn';
         homeBtn.textContent = '◀ 표지';
-        homeBtn.href = 'index.html';
+        homeBtn.href = './';  // Netlify 호환
         homeBtn.setAttribute('aria-label', '표지로 이동');
         
         const nextBtn = document.createElement('a');
         nextBtn.className = 'nav-btn';
         nextBtn.textContent = '시작 ▶';
-        nextBtn.href = 'slide2.html';
+        nextBtn.href = './slide2';  // Netlify 호환
         nextBtn.setAttribute('aria-label', '프레젠테이션 시작');
         
-        
-        const homeBtn2 = document.createElement('a');
-        homeBtn2.className = 'nav-btn';
-        homeBtn2.textContent = '표지';
-        homeBtn2.href = 'index.html';
-        homeBtn2.setAttribute('aria-label', '표지로 이동');
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'nav-btn';
+        fullscreenBtn.textContent = '🖥️ 전체화면';
+        fullscreenBtn.onclick = () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        };
+        fullscreenBtn.setAttribute('aria-label', '전체화면 토글');
         
         // 프레젠터 노트 버튼 추가
         const notesBtn = document.createElement('button');
         notesBtn.className = 'nav-btn';
-        notesBtn.textContent = '노트';
+        notesBtn.textContent = '📝 노트';
         notesBtn.onclick = () => this.toggleNotes();
         notesBtn.setAttribute('aria-label', '프레젠터 노트 토글');
         
         nav.appendChild(homeBtn);
         nav.appendChild(nextBtn);
-        nav.appendChild(homeBtn2);
+        nav.appendChild(fullscreenBtn);
         nav.appendChild(notesBtn);
         
-        // DOM에 추가 (슬라이드 번호 없음)
+        // DOM에 추가
         document.body.appendChild(nav);
     }
 };
