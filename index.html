@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="중소기업 5단계 체계적 AI 도입 지원 프로그램 강의안">
+    <meta name="keywords" content="중소기업, AI, 교육, 자동화, 디지털전환">
+    <meta name="author" content="팜솔라 AI 교육원">
+    <title>중소기업 AI 교육과정 강의안</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="slideshow-container">
+        <div class="slide title-slide">
+            <h1 class="main-title">중소기업 AI<br>교육과정 강의안</h1>
+            <p class="main-subtitle">5단계 체계적 AI 도입 지원 프로그램</p>
+            <div class="title-info">
+                <div class="info-item">
+                    <span class="info-label">1단계</span>
+                    <span class="info-value">AI 도구 완전 정복 (4주)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">2단계</span>
+                    <span class="info-value">AI 자동화 마스터 (8주)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">3단계</span>
+                    <span class="info-value">AI+자동화 융합 심화 (12주)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">4단계</span>
+                    <span class="info-value">AI 전문 조직 구축 (6개월)</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">5단계</span>
+                    <span class="info-value">업계 AI 선도 기업 도약 (1년)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 네비게이션 -->
+    <nav class="slide-nav" role="navigation" aria-label="슬라이드 네비게이션">
+        <a href="slide2.html" class="nav-btn" aria-label="바로 본문으로 이동">📖 바로 본문</a>
+        <a href="contents.html" class="nav-btn" aria-label="프레젠테이션 시작">🚀 프레젠테이션 시작</a>
+        <button class="nav-btn" onclick="SlideNav.toggleFullscreen()" aria-label="전체화면 토글">🖥️ 전체화면</button>
+    </nav>
+    
+    <script src="js/script.js"></script>
+    <script>
+        // 키보드 네비게이션
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'ArrowRight':
+                case 'Space':
+                case 'PageDown':
+                    e.preventDefault();
+                    window.location.href = 'slide2.html';
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    window.location.href = 'contents.html';
+                    break;
+                case 'F11':
+                    e.preventDefault();
+                    SlideNav.toggleFullscreen();
+                    break;
+                case 'Escape':
+                    if (document.fullscreenElement) {
+                        document.exitFullscreen();
+                    }
+                    break;
+            }
+        });
+        
+        // 페이지 로드 시 애니메이션
+        document.addEventListener('DOMContentLoaded', function() {
+            const infoItems = document.querySelectorAll('.info-item');
+            infoItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'all 0.6s ease';
+                
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 200 + (index * 100));
+            });
+        });
+    </script>
+</body>
+</html>

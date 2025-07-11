@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 목차 슬라이드 여백 최적화 테스트</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 테스트용 스타일 */
+        .test-overlay {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            z-index: 10000;
+            max-width: 200px;
+        }
+        
+        .status-bar {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(244, 169, 20, 0.9);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            z-index: 10000;
+            text-align: center;
+        }
+        
+        .debug-border {
+            border: 2px dashed rgba(255, 0, 0, 0.5) !important;
+        }
+        
+        .debug-mode .contents-grid {
+            border: 1px solid rgba(0, 255, 0, 0.7);
+        }
+        
+        .debug-mode .ai-tools-section {
+            border: 1px solid rgba(0, 0, 255, 0.7);
+        }
+        
+        .test-controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px;
+            border-radius: 8px;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .test-controls button {
+            margin: 2px;
+            padding: 6px 12px;
+            background: var(--primary-500);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .test-controls button:hover {
+            background: var(--primary-600);
+        }
+    </style>
+</head>
+<body>
+    <!-- 테스트 컨트롤 -->
+    <div class="test-controls">
+        <div style="margin-bottom: 8px; font-weight: 700; color: var(--primary-600);">🎛️ 목차 최적화 테스트</div>
+        <button onclick="toggleDebugMode()">디버그 모드</button>
+        <button onclick="toggleCompactMode()">컴팩트 모드</button>
+        <button onclick="resetStyles()">초기화</button>
+        <br>
+        <button onclick="testDesktop()">데스크톱</button>
+        <button onclick="testTablet()">태블릿</button>
+        <button onclick="testMobile()">모바일</button>
+    </div>
+
+    <!-- 실시간 측정 정보 -->
+    <div class="test-overlay">
+        <div><strong>📊 실시간 측정</strong></div>
+        <div>화면: <span id="screenSize">-</span></div>
+        <div>슬라이드: <span id="slideHeight">-</span>px</div>
+        <div>콘텐츠: <span id="contentHeight">-</span>px</div>
+        <div>여백: <span id="marginStatus">-</span></div>
+        <div>클래스: <span id="appliedClasses">-</span></div>
+    </div>
+    
+    <!-- 상태 표시 -->
+    <div class="status-bar" id="statusBar">
+        ✅ 목차 슬라이드 최적화 완료 - 여백 제거 및 공간 효율성 극대화
+    </div>
+
+    <div class="slideshow-container">
+        <div class="slide contents-slide">
+            <div class="slide-header">
+                <h1 class="slide-title">목차</h1>
+                <p class="slide-subtitle">중소기업 AI 교육과정 강의안</p>
+            </div>
+            <div class="slide-content">
+                <!-- 목차 그리드 - 간격 최적화 -->
+                <div class="contents-grid" style="margin-bottom: 20px;">
+                    <a href="index.html" class="contents-item">
+                        <div class="contents-number">📄</div>
+                        <div class="contents-info">
+                            <h3>표지</h3>
+                            <p>강의안 표지 및 5단계 교육과정 소개</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide2.html" class="contents-item">
+                        <div class="contents-number">1</div>
+                        <div class="contents-info">
+                            <h3>사업 개요</h3>
+                            <p>사업 목적, 교육 대상, 차별화 요소</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide3.html" class="contents-item">
+                        <div class="contents-number">2</div>
+                        <div class="contents-info">
+                            <h3>교육과정 구성</h3>
+                            <p>5단계 독립 교육과정 체계</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide4.html" class="contents-item">
+                        <div class="contents-number">3</div>
+                        <div class="contents-info">
+                            <h3>1단계: AI 도구 완전 정복</h3>
+                            <p>4주 과정 상세 커리큘럼</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide5.html" class="contents-item">
+                        <div class="contents-number">4</div>
+                        <div class="contents-info">
+                            <h3>2단계: AI 자동화 마스터</h3>
+                            <p>8주 과정 상세 커리큘럼</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide6.html" class="contents-item">
+                        <div class="contents-number">5</div>
+                        <div class="contents-info">
+                            <h3>3단계: AI+자동화 융합 심화</h3>
+                            <p>12주 과정 상세 커리큘럼</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide7.html" class="contents-item">
+                        <div class="contents-number">6</div>
+                        <div class="contents-info">
+                            <h3>4-5단계: 전문 조직 구축</h3>
+                            <p>6개월 + 1년 고급 과정</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide8.html" class="contents-item">
+                        <div class="contents-number">7</div>
+                        <div class="contents-info">
+                            <h3>기대 효과</h3>
+                            <p>정책 목표 부합성 및 성과 지표</p>
+                        </div>
+                    </a>
+                    
+                    <a href="slide9.html" class="contents-item">
+                        <div class="contents-number">8</div>
+                        <div class="contents-info">
+                            <h3>운영 계획</h3>
+                            <p>교육 운영 및 품질 관리 체계</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <!-- AI 도구 및 플랫폼 소개 섹션 -->
+                <div class="ai-tools-section">
+                    <h4 style="margin: 0 0 12px 0; color: var(--primary-600); font-size: 1rem; font-weight: 700; text-align: center;">🛠️ 주요 AI 도구 및 플랫폼</h4>
+                    
+                    <!-- 4개 도구를 가로로 배치 -->
+                    <div class="ai-tools-grid">
+                        <div class="ai-tool-card">
+                            <div style="font-size: 1.2rem; margin-bottom: 4px;">💬</div>
+                            <div style="font-weight: 700; color: var(--primary-600); margin-bottom: 3px; font-size: 0.8rem;">대화형 AI</div>
+                            <div style="font-size: 0.7rem; margin-bottom: 2px;">ChatGPT, Claude, Gemini 등</div>
+                            <div style="font-size: 0.65rem; color: var(--text-secondary);">업무 문서 작성 및 분석</div>
+                        </div>
+                        
+                        <div class="ai-tool-card">
+                            <div style="font-size: 1.2rem; margin-bottom: 4px;">⚡</div>
+                            <div style="font-weight: 700; color: var(--primary-600); margin-bottom: 3px; font-size: 0.8rem;">자동화 플랫폼</div>
+                            <div style="font-size: 0.7rem; margin-bottom: 2px;">Zapier, Make, n8n 등</div>
+                            <div style="font-size: 0.65rem; color: var(--text-secondary);">업무 프로세스 자동화</div>
+                        </div>
+                        
+                        <div class="ai-tool-card">
+                            <div style="font-size: 1.2rem; margin-bottom: 4px;">📊</div>
+                            <div style="font-weight: 700; color: var(--primary-600); margin-bottom: 3px; font-size: 0.8rem;">콘텐츠 생성</div>
+                            <div style="font-size: 0.7rem; margin-bottom: 2px;">Midjourney, Runway, Notion AI 등</div>
+                            <div style="font-size: 0.65rem; color: var(--text-secondary);">이미지, 영상, 문서 생성</div>
+                        </div>
+                        
+                        <div class="ai-tool-card">
+                            <div style="font-size: 1.2rem; margin-bottom: 4px;">🔧</div>
+                            <div style="font-weight: 700; color: var(--primary-600); margin-bottom: 3px; font-size: 0.8rem;">개발 도구</div>
+                            <div style="font-size: 0.7rem; margin-bottom: 2px;">GPT API, Cursor, GitHub Copilot 등</div>
+                            <div style="font-size: 0.65rem; color: var(--text-secondary);">맞춤형 AI 시스템 구축</div>
+                        </div>
+                    </div>
+                    
+                    <!-- 하단 요약 섹션 -->
+                    <div class="ai-tools-summary">
+                        💡 1단계 기초부터 5단계 업계 선도까지 체계적 학습
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+    <script>
+        let debugMode = false;
+        
+        // 실시간 측정 업데이트
+        function updateMeasurements() {
+            const slide = document.querySelector('.slide');
+            const content = document.querySelector('.slide-content');
+            const viewport = window.innerHeight;
+            
+            document.getElementById('screenSize').textContent = `${window.innerWidth}x${viewport}`;
+            document.getElementById('slideHeight').textContent = slide ? slide.offsetHeight : '-';
+            document.getElementById('contentHeight').textContent = content ? content.scrollHeight : '-';
+            
+            // 여백 상태 확인
+            const hasScroll = content && content.scrollHeight > content.offsetHeight;
+            const slideRect = slide ? slide.getBoundingClientRect() : null;
+            const marginTop = slideRect ? slideRect.top : 0;
+            const marginBottom = slideRect ? (viewport - slideRect.bottom) : 0;
+            
+            document.getElementById('marginStatus').textContent = hasScroll ? '❌ 스크롤' : '✅ 최적화';
+            document.getElementById('marginStatus').style.color = hasScroll ? '#ff4444' : '#44ff44';
+            
+            // 적용된 클래스 확인
+            const classes = slide ? Array.from(slide.classList).filter(c => 
+                c.includes('contents') || c.includes('compact') || c.includes('content')
+            ).join(', ') : '-';
+            document.getElementById('appliedClasses').textContent = classes || 'none';
+            
+            // 상태 바 업데이트
+            const statusBar = document.getElementById('statusBar');
+            if (hasScroll) {
+                statusBar.textContent = '⚠️ 스크롤 발생 - 추가 최적화 필요';
+                statusBar.style.background = 'rgba(255, 68, 68, 0.9)';
+            } else if (marginTop > 30 || marginBottom > 30) {
+                statusBar.textContent = '⚡ 여백 감지 - 공간 효율성 개선 가능';
+                statusBar.style.background = 'rgba(255, 193, 7, 0.9)';
+            } else {
+                statusBar.textContent = '✅ 목차 슬라이드 완벽 최적화 - 여백 제거 완료';
+                statusBar.style.background = 'rgba(40, 167, 69, 0.9)';
+            }
+        }
+        
+        // 디버그 모드 토글
+        function toggleDebugMode() {
+            debugMode = !debugMode;
+            document.body.classList.toggle('debug-mode', debugMode);
+            
+            const slide = document.querySelector('.slide');
+            const content = document.querySelector('.slide-content');
+            
+            if (debugMode) {
+                slide.classList.add('debug-border');
+                content.classList.add('debug-border');
+            } else {
+                slide.classList.remove('debug-border');
+                content.classList.remove('debug-border');
+            }
+        }
+        
+        // 컴팩트 모드 토글
+        function toggleCompactMode() {
+            const slide = document.querySelector('.slide');
+            slide.classList.toggle('compact-mode');
+            updateMeasurements();
+        }
+        
+        // 스타일 초기화
+        function resetStyles() {
+            const slide = document.querySelector('.slide');
+            slide.className = 'slide contents-slide';
+            debugMode = false;
+            document.body.classList.remove('debug-mode');
+            updateMeasurements();
+        }
+        
+        // 반응형 테스트
+        function testDesktop() {
+            document.body.style.fontSize = '16px';
+            updateMeasurements();
+        }
+        
+        function testTablet() {
+            document.body.style.fontSize = '14px';
+            updateMeasurements();
+        }
+        
+        function testMobile() {
+            document.body.style.fontSize = '12px';
+            updateMeasurements();
+        }
+        
+        // 초기화 및 이벤트 리스너
+        document.addEventListener('DOMContentLoaded', function() {
+            updateMeasurements();
+            
+            // 리사이즈 이벤트
+            window.addEventListener('resize', updateMeasurements);
+            
+            // 주기적 업데이트
+            setInterval(updateMeasurements, 2000);
+        });
+    </script>
+</body>
+</html>
