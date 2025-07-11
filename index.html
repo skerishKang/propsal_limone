@@ -5,7 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="중소기업 5단계 체계적 AI 도입 지원 프로그램 강의안">
     <meta name="keywords" content="중소기업, AI, 교육, 자동화, 디지털전환">
-    <meta name="author" content="팜솔라 AI 교육원">
+    <meta name="author" content="중소기업융합회">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="presentation">
+    <meta property="og:title" content="중소기업 AI 교육과정 강의안">
+    <meta property="og:description" content="5단계 체계적 AI 도입 지원 프로그램">
+    <meta property="og:site_name" content="중소기업융합회">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="중소기업 AI 교육과정 강의안">
+    <meta name="twitter:description" content="5단계 체계적 AI 도입 지원 프로그램">
+    
     <title>중소기업 AI 교육과정 강의안</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -36,6 +48,7 @@
                     <span class="info-value">업계 AI 선도 기업 도약 (1년)</span>
                 </div>
             </div>
+            <div class="organization-credit">중소기업융합회</div>
         </div>
     </div>
     
@@ -43,7 +56,6 @@
     <nav class="slide-nav" role="navigation" aria-label="슬라이드 네비게이션">
         <a href="slide2.html" class="nav-btn" aria-label="바로 본문으로 이동">📖 바로 본문</a>
         <a href="contents.html" class="nav-btn" aria-label="프레젠테이션 시작">🚀 프레젠테이션 시작</a>
-        <button class="nav-btn" onclick="SlideNav.toggleFullscreen()" aria-label="전체화면 토글">🖥️ 전체화면</button>
     </nav>
     
     <script src="js/script.js"></script>
@@ -60,10 +72,6 @@
                 case 'ArrowDown':
                     e.preventDefault();
                     window.location.href = 'contents.html';
-                    break;
-                case 'F11':
-                    e.preventDefault();
-                    SlideNav.toggleFullscreen();
                     break;
                 case 'Escape':
                     if (document.fullscreenElement) {

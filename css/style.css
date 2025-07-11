@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;700&display=swap');
 
 :root {
     /* 새로운 컬러 시스템 - 이미지 조화 */
@@ -48,6 +48,15 @@ body {
     height: 100vh;
 }
 
+/* 폰트 로딩 상태별 처리 */
+body.fonts-loaded {
+    font-family: 'Inter', 'Noto Sans KR', '맑은 고딕', sans-serif;
+}
+
+body.fonts-fallback {
+    font-family: '맑은 고딕', 'Malgun Gothic', system-ui, sans-serif;
+}
+
 /* 슬라이드 컨테이너 */
 .slideshow-container {
     position: relative;
@@ -68,7 +77,10 @@ body {
     max-height: 90vh;
     height: auto;
     
+    /* 브라우저 호환성 강화 */
+    background: rgba(255, 255, 255, 0.9); /* fallback */
     background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(25px) saturate(140%) brightness(105%);
     backdrop-filter: blur(25px) saturate(140%) brightness(105%);
     border: 1px solid rgba(244, 169, 20, 0.2);
     border-radius: 24px;
@@ -81,6 +93,19 @@ body {
     display: flex;
     flex-direction: column;
     animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* backdrop-filter 지원 감지 */
+@supports (backdrop-filter: blur(25px)) {
+    .slide {
+        background: rgba(255, 255, 255, 0.4);
+    }
+}
+
+@supports (-webkit-backdrop-filter: blur(25px)) {
+    .slide {
+        background: rgba(255, 255, 255, 0.4);
+    }
 }
 
 @keyframes slideIn {
@@ -236,6 +261,17 @@ body {
     flex: 1;
     text-align: left;
     margin-left: 20px;
+}
+
+.organization-credit {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-600);
+    padding: 12px 0;
+    border-top: 2px solid rgba(244, 169, 20, 0.2);
+    letter-spacing: 0.5px;
 }
 
 /* 콘텐츠 그리드 */

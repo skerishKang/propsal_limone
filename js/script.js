@@ -11,8 +11,7 @@ const SlideNav = {
         { id: 6, name: 'stage3', file: 'slide6.html' },
         { id: 7, name: 'stage4', file: 'slide7.html' },
         { id: 8, name: 'stage5', file: 'slide8.html' },
-        { id: 9, name: 'effect', file: 'slide9.html' },
-        { id: 10, name: 'operation', file: 'slide10.html' }
+        { id: 9, name: 'effect', file: 'slide9.html' }
     ],
     
     // 프레젠터 노트 (각 슬라이드별)
@@ -26,8 +25,7 @@ const SlideNav = {
         6: "3단계: AI+자동화 융합 심화 과정입니다.",
         7: "4단계: AI 전문 조직 구축 과정입니다.",
         8: "5단계: 업계 AI 선도 기업 도약 과정입니다.",
-        9: "기대 효과를 구체적으로 설명합니다.",
-        10: "운영 방안과 지원 체계를 안내합니다."
+        9: "기대 효과를 구체적으로 설명합니다."
     },
     
     // 현재 슬라이드 번호 가져오기
@@ -40,8 +38,23 @@ const SlideNav = {
     
     // 특정 슬라이드로 이동
     goToSlide(slideNumber) {
-        if (slideNumber >= 0 && slideNumber < this.slides.length) {
-            window.location.href = this.slides[slideNumber].file;
+        try {
+            if (slideNumber >= 0 && slideNumber < this.slides.length) {
+                const targetFile = this.slides[slideNumber].file;
+                if (targetFile) {
+                    window.location.href = targetFile;
+                } else {
+                    console.error('대상 파일이 정의되지 않음:', slideNumber);
+                    // 홈으로 돌아가기
+                    window.location.href = 'index.html';
+                }
+            } else {
+                console.warn('슬라이드 번호 범위 초과:', slideNumber);
+            }
+        } catch (error) {
+            console.error('네비게이션 오류:', error);
+            // 홈으로 돌아가기
+            window.location.href = 'index.html';
         }
     },
     
@@ -91,11 +104,11 @@ const SlideNav = {
             return;
         }
         
-        // 슬라이드 번호 계산 (slide2 = 1/10, slide3 = 2/10, ...)
+        // 슬라이드 번호 계산 (slide2 = 1/9, slide3 = 2/9, ...)
         const slideNumber = current - 1;
-        const totalSlides = 10;
+        const totalSlides = 9;
         
-        // 인디케이터 생성 (slide2~slide10용)
+        // 인디케이터 생성 (slide2~slide9용)
         const indicators = document.createElement('div');
         indicators.className = 'slide-indicators';
         
@@ -130,10 +143,6 @@ const SlideNav = {
             nextBtn.onclick = (e) => e.preventDefault();
         }
         
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'nav-btn';
-        fullscreenBtn.textContent = '전체화면';
-        fullscreenBtn.onclick = this.toggleFullscreen;
         
         const homeBtn = document.createElement('a');
         homeBtn.className = 'nav-btn';
@@ -148,7 +157,6 @@ const SlideNav = {
         
         nav.appendChild(prevBtn);
         nav.appendChild(nextBtn);
-        nav.appendChild(fullscreenBtn);
         nav.appendChild(homeBtn);
         nav.appendChild(notesBtn);
         
@@ -458,11 +466,6 @@ const SlideNav = {
         nextBtn.href = 'slide2.html';
         nextBtn.setAttribute('aria-label', '프레젠테이션 시작');
         
-        const fullscreenBtn = document.createElement('button');
-        fullscreenBtn.className = 'nav-btn';
-        fullscreenBtn.textContent = '전체화면';
-        fullscreenBtn.onclick = () => this.toggleFullscreen();
-        fullscreenBtn.setAttribute('aria-label', '전체화면 토글');
         
         const homeBtn2 = document.createElement('a');
         homeBtn2.className = 'nav-btn';
@@ -479,7 +482,6 @@ const SlideNav = {
         
         nav.appendChild(homeBtn);
         nav.appendChild(nextBtn);
-        nav.appendChild(fullscreenBtn);
         nav.appendChild(homeBtn2);
         nav.appendChild(notesBtn);
         
@@ -490,3 +492,17 @@ const SlideNav = {
 
 // 자동 초기화
 SlideNav.init();
+
+// 폰트 로딩 처리
+if (document.fonts) {
+    document.fonts.ready.then(() => {
+        console.log('폰트 로딩 완료');
+        document.body.classList.add('fonts-loaded');
+    }).catch(() => {
+        console.warn('폰트 로딩 실패 - fallback 적용');
+        document.body.classList.add('fonts-fallback');
+    });
+} else {
+    // document.fonts 미지원 브라우저 대응
+    document.body.classList.add('fonts-fallback');
+}
