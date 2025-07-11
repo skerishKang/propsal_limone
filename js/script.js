@@ -3,29 +3,29 @@ const SlideNav = {
     // 슬라이드 정보 (/ = 표지, /contents = 목차)
     slides: [
         { id: 0, name: 'title', file: './' },
-        { id: 1, name: 'contents', file: './contents' },
-        { id: 2, name: 'overview', file: './slide2' },
-        { id: 3, name: 'curriculum', file: './slide3' },
-        { id: 4, name: 'stage1', file: './slide4' },
-        { id: 5, name: 'stage2', file: './slide5' },
-        { id: 6, name: 'stage3', file: './slide6' },
-        { id: 7, name: 'stage4', file: './slide7' },
-        { id: 8, name: 'stage5', file: './slide8' },
-        { id: 9, name: 'effect', file: './slide9' }
+        { id: 1, name: 'contents', file: './contents.html' },
+        { id: 2, name: 'overview', file: './slide2.html' },
+        { id: 3, name: 'curriculum', file: './slide3.html' },
+        { id: 4, name: 'stage1', file: './slide4.html' },
+        { id: 5, name: 'stage2', file: './slide5.html' },
+        { id: 6, name: 'stage3', file: './slide6.html' },
+        { id: 7, name: 'stage4', file: './slide7.html' },
+        { id: 8, name: 'stage5', file: './slide8.html' },
+        { id: 9, name: 'effect', file: './slide9.html' }
     ],
     
-    // 프레젠터 노트 (각 슬라이드별)
-    notes: {
-        0: "프레젠테이션을 시작합니다. 5단계 체계적 AI 도입 프로그램을 소개하겠습니다.",
-        1: "목차를 통해 전체 구성을 확인할 수 있습니다.",
-        2: "사업 개요: 중소기업의 단계별 AI 도입을 통한 경쟁력 강화가 목적입니다.",
-        3: "전체 커리큘럼 구성을 설명합니다.",
-        4: "1단계: AI 도구 완전 정복 과정입니다.",
-        5: "2단계: AI 자동화 마스터 과정입니다.",
-        6: "3단계: AI+자동화 융합 심화 과정입니다.",
-        7: "4단계: AI 전문 조직 구축 과정입니다.",
-        8: "5단계: 업계 AI 선도 기업 도약 과정입니다.",
-        9: "기대 효과를 구체적으로 설명합니다."
+    // 슬라이드 요약 (각 슬라이드별 핵심 포인트)
+    summaries: {
+        0: "📌 핵심 포인트\n• 5단계 체계적 AI 도입 프로그램\n• 4주부터 1년까지 단계별 성장\n• 중소기업 맞춤형 교육과정\n\n🎯 다음: 전체 목차 확인",
+        1: "📌 핵심 포인트\n• 표지 + 8개 주요 슬라이드 구성\n• AI 도구 4종류 (대화형/자동화/콘텐츠/개발)\n• 1단계 기초부터 5단계 선도까지\n\n🎯 다음: 사업 개요 상세 설명",
+        2: "📌 핵심 포인트\n• 목적: 중소기업 AI 경쟁력 강화\n• 대상: CEO 및 핵심 직원 우선\n• 특징: 651개 검증된 AI 도구 활용\n\n🎯 다음: 5단계 교육과정 구성",
+        3: "📌 핵심 포인트\n• 5단계 독립 교육과정 체계\n• 각 단계별 완결성 보장\n• 4주 → 8주 → 12주 → 6개월 → 1년\n\n🎯 다음: 1단계 상세 커리큘럼",
+        4: "📌 핵심 포인트\n• 4주 과정으로 AI 도구 완전 정복\n• 업무 시간 30% 단축 효과\n• ChatGPT, Claude, Gemini 등 활용\n\n🎯 다음: 2단계 자동화 과정",
+        5: "📌 핵심 포인트\n• 8주 과정으로 업무 자동화 50% 달성\n• Zapier/Make 기반 시스템 구축\n• AI API 연동 지능형 자동화\n\n🎯 다음: 3단계 융합 심화",
+        6: "📌 핵심 포인트\n• 12주 과정으로 AI+자동화 융합\n• 업무 효율성 70% 이상 향상\n• n8n 고급 플랫폼 + AI 에이전트\n\n🎯 다음: 4단계 전문 시스템",
+        7: "📌 핵심 포인트\n• 6개월 과정으로 전문 시스템 구축\n• 멀티모달 AI + 노코드 플랫폼\n• 실제 비즈니스 시스템 개발\n\n🎯 다음: 5단계 선도 기업",
+        8: "📌 핵심 포인트\n• 1년 과정으로 업계 선도 기업 도약\n• AI 데이터 분석 전문가 수준\n• 맞춤형 AI 솔루션 개발 역량\n\n🎯 다음: 기대 효과 및 성과",
+        9: "📌 핵심 포인트\n• ROI 3:1, 투자 회수 기간 6개월\n• 비용 절감 40%, 매출 증대 25%\n• 정책 목표 완벽 부합 (일자리/디지털전환)\n\n🎉 발표 완료!"
     },
     
     // 현재 슬라이드 번호 가져오기
@@ -171,16 +171,16 @@ const SlideNav = {
         homeBtn.textContent = '표지';
         homeBtn.href = './';
         
-        // 프레젠터 노트 버튼 추가
-        const notesBtn = document.createElement('button');
-        notesBtn.className = 'nav-btn';
-        notesBtn.textContent = '노트';
-        notesBtn.onclick = () => this.toggleNotes();
+        // 슬라이드 요약 버튼 추가
+        const summaryBtn = document.createElement('button');
+        summaryBtn.className = 'nav-btn';
+        summaryBtn.textContent = '📋 요약';
+        summaryBtn.onclick = () => this.toggleSummary();
         
         nav.appendChild(prevBtn);
         nav.appendChild(nextBtn);
         nav.appendChild(homeBtn);
-        nav.appendChild(notesBtn);
+        nav.appendChild(summaryBtn);
         
         // DOM에 추가
         document.body.appendChild(indicators);
@@ -442,30 +442,30 @@ const SlideNav = {
         }
     },
     
-    // 프레젠터 노트 토글
-    toggleNotes() {
+    // 슬라이드 요약 토글
+    toggleSummary() {
         const current = this.getCurrentSlide();
-        const note = this.notes[current] || "이 슬라이드에 대한 노트가 없습니다.";
+        const summary = this.summaries[current] || "이 슬라이드에 대한 요약이 없습니다.";
         
-        // 기존 노트 패널 제거
-        const existingPanel = document.querySelector('.presenter-notes');
+        // 기존 요약 패널 제거
+        const existingPanel = document.querySelector('.slide-summary');
         if (existingPanel) {
             existingPanel.remove();
             return;
         }
         
-        // 노트 패널 생성
-        const notesPanel = document.createElement('div');
-        notesPanel.className = 'presenter-notes';
-        notesPanel.innerHTML = `
-            <div class="notes-header">
-                <span>프레젠터 노트 (슬라이드 ${current})</span>
-                <button class="notes-close" onclick="this.parentElement.parentElement.remove()">×</button>
+        // 요약 패널 생성
+        const summaryPanel = document.createElement('div');
+        summaryPanel.className = 'slide-summary';
+        summaryPanel.innerHTML = `
+            <div class="summary-header">
+                <span>📋 슬라이드 요약 (${current + 1}/10)</span>
+                <button class="summary-close" onclick="this.parentElement.parentElement.remove()">×</button>
             </div>
-            <div class="notes-content">${note}</div>
+            <div class="summary-content">${summary.replace(/\n/g, '<br>')}</div>
         `;
         
-        document.body.appendChild(notesPanel);
+        document.body.appendChild(summaryPanel);
     },
     
     // 목차 페이지 전용 네비게이션 생성
@@ -500,17 +500,17 @@ const SlideNav = {
         };
         fullscreenBtn.setAttribute('aria-label', '전체화면 토글');
         
-        // 프레젠터 노트 버튼 추가
-        const notesBtn = document.createElement('button');
-        notesBtn.className = 'nav-btn';
-        notesBtn.textContent = '📝 노트';
-        notesBtn.onclick = () => this.toggleNotes();
-        notesBtn.setAttribute('aria-label', '프레젠터 노트 토글');
+        // 슬라이드 요약 버튼 추가
+        const summaryBtn = document.createElement('button');
+        summaryBtn.className = 'nav-btn';
+        summaryBtn.textContent = '📋 요약';
+        summaryBtn.onclick = () => this.toggleSummary();
+        summaryBtn.setAttribute('aria-label', '슬라이드 요약 보기');
         
         nav.appendChild(homeBtn);
         nav.appendChild(nextBtn);
         nav.appendChild(fullscreenBtn);
-        nav.appendChild(notesBtn);
+        nav.appendChild(summaryBtn);
         
         // DOM에 추가
         document.body.appendChild(nav);

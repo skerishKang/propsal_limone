@@ -694,13 +694,13 @@ body.fonts-fallback {
     }
 }
 
-/* 프레젠터 노트 스타일 */
-.presenter-notes {
+/* 슬라이드 요약 스타일 */
+.slide-summary {
     position: fixed;
     top: 20px;
     right: 20px;
-    width: 320px;
-    max-height: 400px;
+    width: 350px;
+    max-height: 450px;
     background: rgba(44, 62, 80, 0.95);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(244, 169, 20, 0.3);
@@ -710,7 +710,7 @@ body.fonts-fallback {
     overflow: hidden;
 }
 
-.notes-header {
+.summary-header {
     background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-400) 100%);
     color: white;
     padding: 12px 16px;
@@ -721,7 +721,7 @@ body.fonts-fallback {
     align-items: center;
 }
 
-.notes-close {
+.summary-close {
     background: none;
     border: none;
     color: white;
@@ -737,28 +737,28 @@ body.fonts-fallback {
     transition: background-color 0.2s ease;
 }
 
-.notes-close:hover {
+.summary-close:hover {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.notes-content {
+.summary-content {
     padding: 16px;
     color: white;
     font-size: 14px;
-    line-height: 1.5;
-    max-height: 320px;
+    line-height: 1.6;
+    max-height: 360px;
     overflow-y: auto;
 }
 
 @media (max-width: 768px) {
-    .presenter-notes {
+    .slide-summary {
         right: 10px;
-        width: 280px;
-        max-height: 300px;
+        width: 300px;
+        max-height: 350px;
     }
     
-    .notes-content {
-        max-height: 240px;
+    .summary-content {
+        max-height: 280px;
         font-size: 13px;
     }
 }
